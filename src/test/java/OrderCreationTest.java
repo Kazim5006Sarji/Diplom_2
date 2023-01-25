@@ -3,6 +3,7 @@ import io.qameta.allure.Step;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -45,5 +46,9 @@ public class OrderCreationTest {
         orderClient = new OrderClient();
         Response response = orderClient.getOrderWithoutIngredients();
         response.then().statusCode(400);
+    }
+    @After
+    public void setDown() {
+        orderClient.deleteOrders();
     }
 }

@@ -53,4 +53,38 @@ public class UserCreationTest {
                 .and()
                 .body("message", is("Email, password and name are required fields"));
     }
+
+
+    @Test
+    @DisplayName("Создать пользователя и не заполнить пароль и email")
+    public void createWithoutEmailAndPassword() {
+        Response response = userClient.getResponseWithEmptyEmailAndPasswordFields();
+        response.then()
+                .assertThat()
+                .statusCode(403)
+                .and()
+                .body("message", is("Email, password and name are required fields"));
+    }
+
+    @Test
+    @DisplayName("Создать пользователя и не заполнить email")
+    public void createWithoutEmail() {
+        Response response = userClient.getResponseWithEmptyEmailField();
+        response.then()
+                .assertThat()
+                .statusCode(403)
+                .and()
+                .body("message", is("Email, password and name are required fields"));
+    }
+
+    @Test
+    @DisplayName("Создать пользователя и не заполнить пароль")
+    public void createWithoutPassword() {
+        Response response = userClient.getResponseWithEmptyPasswordFields();
+        response.then()
+                .assertThat()
+                .statusCode(403)
+                .and()
+                .body("message", is("Email, password and name are required fields"));
+    }
 }

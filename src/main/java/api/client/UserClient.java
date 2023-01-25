@@ -27,7 +27,7 @@ public class UserClient {
                 .post("/api/auth/register");
     }
 
-    @Step("Создание пользователя без имени")
+    @Step("Создание пользователя без обязательных полей")
     public Response getResponseWithEmptyRequiredField() {
         user = new User(email, password);
         return given()
@@ -84,6 +84,37 @@ public class UserClient {
                 .delete("/api/auth/user");
     }
 
+    @Step("Создание пользователя без email и пароля, но с именем")
+    public Response getResponseWithEmptyEmailAndPasswordFields() {
+        user = new User(name);
+        return given()
+                .header("Content-type", "application/json")
+                .body(user)
+                .when()
+                .post("/api/auth/register");
+    }
+
+    @Step("Создание пользователя без email")
+    public Response getResponseWithEmptyEmailField() {
+        user = new User(name);
+        user.setPassword(password);
+        return given()
+                .header("Content-type", "application/json")
+                .body(user)
+                .when()
+                .post("/api/auth/register");
+    }
+
+    @Step("Создание пользователя без пароля")
+    public Response getResponseWithEmptyPasswordFields() {
+        user = new User(name);
+        user.setEmail(email);
+        return given()
+                .header("Content-type", "application/json")
+                .body(user)
+                .when()
+                .post("/api/auth/register");
+    }
 
 
 }

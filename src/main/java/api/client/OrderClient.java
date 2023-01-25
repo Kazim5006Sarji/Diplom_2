@@ -122,5 +122,16 @@ public class OrderClient {
                 .get("/api/orders");
     }
 
+    @Step("Удаление созданных заказов")
+    public Response deleteOrders() {
+        userClient = new UserClient();
+        userClient.getCorrectResponse();
+        Response response = userClient.authUser();
+        ResponseWithToken token = response.body().as(ResponseWithToken.class);
+
+        return given().header("Authorization", token.getAccessToken())
+                .delete("/api/orders");
+
+    }
 
 }

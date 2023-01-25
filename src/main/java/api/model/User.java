@@ -19,5 +19,7 @@ public class User {
         this.email = email;
         this.password = password;
     }
-
+    public User(String name) {
+        this.name = name;
+    }
 }
